@@ -1,0 +1,24 @@
+{
+  "name": "mad9135-c2-pwa",
+  "version": "1.0.0",
+  "description": "PWA assignment",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoho0001/mad9135-c2-pwa.git"
+  },
+  "keywords": [
+    "pwa",
+    "workbox"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoho0001/mad9135-c2-pwa/issues"
+  },
+  "homepage": "https://github.com/hoho0001/mad9135-c2-pwa#readme",
+  "devDependencies": {
+    "express": "^4.16.4"
+  }
+}
