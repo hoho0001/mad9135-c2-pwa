@@ -11,7 +11,8 @@ class StarWarsApiService {
         'mode': 'cors',
         'origin': '*',
         'method': 'GET',
-        'Content-Type': 'application/json; charset=utf-8'
+        'X-Content-Type-Options': 'nosniff',
+        'Content-Type': 'text/html, text/json, application/json; charset=utf-8'
       }
     }
   }
@@ -21,7 +22,7 @@ class StarWarsApiService {
       const response = await fetch(`${this.baseUrl}${uri}`, { ...this.options, ...options }) //merge two objects
       if (response.ok) {
         const jason = response.json()
-        return await jason.GetRouteSummaryForStopResult
+        return await jason
       }
       return Promise.reject(`${response.status}: ${response.statusText}`)
     } catch (err) {
