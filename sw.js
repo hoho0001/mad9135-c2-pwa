@@ -18,7 +18,7 @@ workbox.precaching.precacheAndRoute([
     'js/script.js',
     'js/StarWarsApiService.js',
     'css/style.css',
-    'images/offline.jpg',
+    'images/offline.png',
     'images/icons/icon-72x72.png',
     "images/icons/icon-128x128.png",
     "images/icons/icon-144x144.png",
@@ -39,6 +39,7 @@ workbox.routing.registerRoute(
         cacheName: 'htmlcache'
     })
 );
+
 workbox.routing.registerRoute(
   new RegExp('/$'),
   new workbox.strategies.NetworkOnly({
@@ -47,9 +48,9 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-  new RegExp('.jpg'),
+  new RegExp('.png'),
   new workbox.strategies.NetworkOnly({
-      cacheName: 'jpgcache'
+      cacheName: 'pngcache'
   })
 );
 workbox.routing.registerRoute(
@@ -71,7 +72,7 @@ workbox.routing.setCatchHandler(({ event }) => {
             return caches.match('./offline.html');
             break;
         case 'image':
-            return caches.match('./images/offline.jpg');
+            return caches.match('./images/offline.png');
             break;
         // default:
         //     return Response.error();
