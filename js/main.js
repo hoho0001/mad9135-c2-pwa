@@ -12,21 +12,24 @@ const app = {
     this.personOutput.innerText = text
   },
 
-  showList(people) {
-    const list = people.map(person => {
+  showList(routes) {
+    const list = people.map(route => {
       return {
-        name: person.name,
-        height: person.height,
-        birth_year: person.birth_year
+        destination: route.GetRouteSummaryForStopResult.Routes.Route.Trips.Trip.TripDestination,
+        sttime: route.GetRouteSummaryForStopResult.Routes.Route.Trips.Trip.TripStartTime,
+        lat: route.GetRouteSummaryForStopResult.Routes.Route.Trips.Trip.Latitude
       }
     })
 
     const target = document.getElementById('result')
     const ul = document.createElement('ul')
+    document.createElement('li').innerHTML = `Stop #: ${routes.GetRouteSummaryForStopResult.StopNo}`
+    document.createElement('li').innerHTML = `Stop Description: ${routes.GetRouteSummaryForStopResult.StopDescription}`
+    document.createElement('li').innerHTML = `Route #: ${routes.GetRouteSummaryForStopResult.Routes.Route.RouteNo}`
     list.forEach(route => {
       const li = document.createElement('li')
-      li.innerHTML = `Name: ${route.name}; Heigth: <strong>${route.height} cm</strong>
-      <em> (Birth year ${route.birth_year})</em>`
+      li.innerHTML = `Destination: ${route.destination}; Start Time: <strong>${route.sttime}</strong>
+      <em> (Latitude ${route.lat})</em>`
       ul.appendChild(li)
     });
     target.appendChild(ul)

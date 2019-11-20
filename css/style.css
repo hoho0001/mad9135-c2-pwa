@@ -28,8 +28,7 @@ header {
     color: hsl(0, 0%, 90%);
     box-shadow: 0 4px 4px hsla(0, 0%, 0%, 0.14),0 4px 8px hsla(0, 0%, 0%, 0.28);
   }
-#imgstt {
-}
+
 nav {
     float: left;
     width: 30%;
