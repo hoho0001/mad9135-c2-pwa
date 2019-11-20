@@ -18,8 +18,7 @@ class StarWarsApiService {
 
   async fetchJson(uri, options = {}) {
     try {
-      // const response = await fetch(`${this.baseUrl}${uri}`, { ...this.options, ...options }) //merge two objects
-      const response = await fetch(this.baseUrl) //merge two objects
+      const response = await fetch(`${this.baseUrl}${uri}`, { ...this.options, ...options }) //merge two objects
       if (response.ok) {
         const jason = response.json()
         return await jason.GetRouteSummaryForStopResult
