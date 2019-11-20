@@ -5,14 +5,17 @@ self.addEventListener('message', (event) => {
     self.skipWaiting();
   }
 });
-workbox.routing.setDefaultHandler(
-    new workbox.strategies.StaleWhileRevalidate()
-);
+// workbox.routing.setDefaultHandler(
+//     new workbox.strategies.StaleWhileRevalidate()
+// );
 
 workbox.precaching.precacheAndRoute([
     'offline.html',
     'index.js',
+    'manifest.json',
+    'sw.js',
     'js/main.js',
+    'js/script.js',
     'js/StarWarsApiService.js',
     'css/style.css',
     'images/offline.jpg',
@@ -55,14 +58,20 @@ workbox.routing.registerRoute(
       cacheName: 'home-page'
   })
 )
+workbox.routing.registerRoute(
+  /^https:\/\/hoho0001\.github\.io\/mad9135-c2-pwa/,
+  new workbox.strategies.NetworkFirst({
+      cacheName: 'home-page'
+  })
+)
 
 workbox.routing.setCatchHandler(({ event }) => {
     switch (event.request.destination) {
         case 'document':
-            return caches.match('offline.html');
+            return caches.match('./offline.html');
             break;
         case 'image':
-            return caches.match('image/offline.jpg');
+            return caches.match('./images/offline.jpg');
             break;
         // default:
         //     return Response.error();
