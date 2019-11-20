@@ -13,7 +13,7 @@ const app = {
   },
 
   showList(routes) {
-    const list = people.map(route => {
+    const list = routes.map(route => {
       return {
         destination: route.GetRouteSummaryForStopResult.Routes.Route.Trips.Trip.TripDestination,
         sttime: route.GetRouteSummaryForStopResult.Routes.Route.Trips.Trip.TripStartTime,
@@ -40,7 +40,7 @@ const app = {
     const swapi = new StarWarsApiService()
     swapi
       .getPeople()
-      .then(routes => { console.log(routes); app.showList(routes.results) })
+      .then(routes => app.showList(routes))
       .catch(error => app.showResult('Problem accessing external resource ' + error))
   },
 
