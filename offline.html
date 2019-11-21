@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="manifest" href="manifest.json" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
 
-  <body>
-    <div>
-      <img src="./images/offline.png" alt="there's no internet connection" />
+<head>
+  <link rel="manifest" href="manifest.json" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>PWA Offline</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <header>
+    <h2>PWA Offline</h2>
+  </header>
+  <div id="content">
+    <div id="imgstt">
+      <img src="./images/offline.png" alt="There's no internet connection" />
     </div>
 
     <div>
-      <h1>Current Weather Information</h1>
+      <h2>Current Weather Information (offline):</h2>
     </div>
 
     <div id="weather">
@@ -25,25 +30,28 @@
       </div>
 
       <div id="details"></div>
-      <div>
-        Latest info downloaded from
-        <a href="https://openweathermap.org/">Open Weather Map</a> at
-        <span id="latest"></span>
-      </div>
     </div>
-    <footer>
-      <p>Created by Lien & Luis</p>
-    </footer>
+  </div>
 
-    <script src="./main.js"></script>
+  <footer>
+    <div>
+      Latest info:
+      <a href="https://openweathermap.org/">Open Weather Map</a> at
+      <span id="latest"></span>
+    </div>
+    <p>Created by Lien & Luis</p>
+  </footer>
 
-    <script>
-      if ("serviceWorker" in navigator) {
-        // Use the window load event as a trigger to register your Service Worker
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.register("./sw.js");
-        });
-      }
-    </script>
-  </body>
+  <script src="./main.js"></script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      // Use the window load event as a trigger to register your Service Worker
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js");
+      });
+    }
+  </script>
+</body>
+
 </html>
