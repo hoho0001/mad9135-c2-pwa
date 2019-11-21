@@ -5,65 +5,6 @@ self.addEventListener('message', (event) => {
     self.skipWaiting();
   }
 });
-// workbox.routing.setDefaultHandler(
-//     new workbox.strategies.StaleWhileRevalidate()
-// );
-
-workbox.precaching.precacheAndRoute([
-  'offline.html',
-  'index.js',
-  'manifest.json',
-  'sw.js',
-  'js/main.js',
-  'js/script.js',
-  'js/StarWarsApiService.js',
-  'css/style.css',
-  'images/offline.png',
-  'images/icons/icon-72x72.png',
-  "images/icons/icon-128x128.png",
-  "images/icons/icon-144x144.png",
-  "images/icons/icon-152x152.png",
-  "images/icons/icon-192x192.png",
-  "images/icons/icon-384x384.png",
-  "images/icons/icon-512x512.png",
-  "images/icons/icon-96x96.png"
-],
-  {
-    directoryIndex: null,
-  });
-
-workbox.routing.registerRoute(
-  new RegExp('.html'),
-  new workbox.strategies.NetworkOnly({
-    cacheName: 'htmlcache'
-  })
-);
-
-workbox.routing.registerRoute(
-  new RegExp('/$'),
-  new workbox.strategies.NetworkOnly({
-    cacheName: 'htmlcache'
-  })
-);
-
-workbox.routing.registerRoute(
-  new RegExp('.png'),
-  new workbox.strategies.NetworkOnly({
-    cacheName: 'pngcache'
-  })
-);
-workbox.routing.registerRoute(
-  /^https:\/\/(www\.)?localhost:8082(\/)?$/,
-  new workbox.strategies.NetworkFirst({
-    cacheName: 'home-page'
-  })
-)
-workbox.routing.registerRoute(
-  /^https:\/\/hoho0001\.github\.io\/mad9135-c2-pwa/,
-  new workbox.strategies.NetworkFirst({
-    cacheName: 'home-page'
-  })
-)
 
 workbox.routing.setCatchHandler(({ event }) => {
   switch (event.request.destination) {
@@ -78,8 +19,40 @@ workbox.routing.setCatchHandler(({ event }) => {
   }
 });
 
+workbox.routing.setDefaultHandler(
+  new workbox.strategies.StaleWhileRevalidate()
+);
+
 workbox.routing.registerRoute(
-  new RegExp('https://api.octranspo1.com/v1.3'),
+  new RegExp('.html'),
+  new workbox.strategies.NetworkOnly()
+);
+
+workbox.routing.registerRoute(
+  new RegExp('/$'),
+  new workbox.strategies.NetworkOnly()
+);
+
+workbox.routing.registerRoute(
+  new RegExp('.png'),
+  new workbox.strategies.NetworkOnly()
+);
+workbox.routing.registerRoute(
+  /^https:\/\/(www\.)?localhost:5501(\/)?$/,
+  new workbox.strategies.NetworkFirst({
+    cacheName: 'home-page'
+  })
+)
+workbox.routing.registerRoute(
+  /^https:\/\/hoho0001\.github\.io\/mad9135-c2-pwa/,
+  new workbox.strategies.NetworkFirst({
+    cacheName: 'home-page'
+  })
+)
+
+
+workbox.routing.registerRoute(
+  new RegExp("https://api.openweathermap.org/data/2.5/weather?id=6094817&units=metric&APPID=2d46092cb1d1df56a99dc89cffe08968"),
   new workbox.strategies.NetworkFirst({
     cacheName: 'responseApi-cache',
     plugins: [
@@ -90,6 +63,14 @@ workbox.routing.registerRoute(
   })
 );
 
-
-
-
+workbox.precaching.precacheAndRoute([
+  'offline.html',
+  'manifest.json',
+  'sw.js',
+  'main.js',
+  'style.css',
+  'images/offline.png'
+],
+  {
+    directoryIndex: null,
+  });

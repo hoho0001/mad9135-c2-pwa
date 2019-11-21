@@ -15,13 +15,6 @@ body {
     display: flex;
     flex-direction: column;
 }
-#imgstt {
-  width: 30%;
-  align-self: center;
-}
-img {
-  width: 100%;
-}
 header {
     background-color:hsla(240, 75%, 30%, 0.9);
     z-index: 100;
@@ -49,14 +42,7 @@ nav {
     padding: 0;
   }
 
-  article {
-    float: left;
-    padding: 1vw;
-    width: 70%;
-    height:15vw;
-    background-color: #f1f1f1;
-
-  }
+  
   section:after {
     content: "";
     display: table;

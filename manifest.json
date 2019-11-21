@@ -6,10 +6,6 @@
   "display": "standalone",
   "Scope": "/",
   "start_url": "/",
-  "permissions": [
-    "storage",
-    "*://localhost/*"
-  ],
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",

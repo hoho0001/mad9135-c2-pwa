@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <link rel="manifest" href="manifest.json">
+  <head>
+    <link rel="manifest" href="manifest.json" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>PWA Assignment</title>
-    <meta charset="utf-8">
-    <link rel="icon" href="favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#317EFB" />
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src='js/script.js'></script>
-</head>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<body>
-    <header>
-        <h2>PWA Assignment</h2>
-    </header>
-    <div id="content">
-        <div id="imgstt">
-            <img src="images/online.png" alt="online" />
-        </div>
-        <p>This is a simple PWA application using Workbox !</p>
-        <pre><code id="result"></code></pre>
+  <body>
+    <div>
+      <img src="./images/online.png" alt="connected to the world" />
     </div>
 
+    <div>
+      <h1>Current Weather Information</h1>
+    </div>
+
+    <div id="weather">
+      <div>
+        <h3 id="city"></h3>
+        <div id="temp"></div>
+      </div>
+
+      <div id="details"></div>
+      <div>
+        Latest info downloaded from
+        <a href="https://openweathermap.org/">Open Weather Map</a> at
+        <span id="latest"></span>
+      </div>
+    </div>
     <footer>
-        <p>Created by Lien & Luis</p>
+      <p>Created by Lien & Luis</p>
     </footer>
+    <script src="./main.js"></script>
 
-    <script src="js/StarWarsApiService.js"></script>
-    <script src="js/main.js"></script>
-</body>
-
+    <script>
+      if ("serviceWorker" in navigator) {
+        // Use the window load event as a trigger to register your Service Worker
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./sw.js");
+        });
+      }
+    </script>
+  </body>
 </html>
