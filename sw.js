@@ -5,28 +5,67 @@ self.addEventListener('message', (event) => {
     self.skipWaiting();
   }
 });
-
-workbox.routing.setCatchHandler(({ event }) => {
-  switch (event.request.destination) {
-    case 'document':
-      return caches.match('./offline.html');
-      break;
-    case 'image':
-      return caches.match('./images/offline.png');
-      break;
-    // default:
-    //     return Response.error();
+workbox.precaching.precacheAndRoute([
+  {
+    "url": "style.css",
+    "revision": "628320e3f89c25f36472cda3e970e57d"
+  },
+  {
+    "url": "main.js",
+    "revision": "8952a6ec2786e6e8d62a7934bc7f1c1f"
+  },
+  {
+    "url": "offline.html",
+    "revision": "71fd8b4fc1caa6afbe21881165fe922e"
+  },
+  {
+    "url": "sw.js",
+    "revision": "e6d8cee68556db8f2c655cad6bd4717d"
+  },
+  {
+    "url": "manifest.json",
+    "revision": "4c41dc417a08a7bb6eb2f7f06788f43c"
+  },
+  {
+    "url": "images/offline.png",
+    "revision": "71dceaabcd85c771e9fa5d9fd55611f3"
   }
-});
-
-workbox.routing.setDefaultHandler(
-  new workbox.strategies.StaleWhileRevalidate()
-);
+]);
 
 workbox.routing.registerRoute(
   new RegExp('.html'),
   new workbox.strategies.NetworkOnly()
 );
+
+workbox.routing.registerRoute(
+  new RegExp("^https://api.openweathermap\.org/data/2\.5/"),
+  new workbox.strategies.NetworkFirst()
+);
+
+workbox.routing.setCatchHandler(({ event }) => {
+  switch (event.request.destination) {
+    case 'document':
+      return getOffline('./offline.html');
+      break;
+    case 'image':
+      return getOffline('./images/offline.png');
+      break;
+    default:
+        return Response.error();
+  }
+});
+
+workbox.routing.setDefaultHandler(async ({ url, event, params }) => {
+  return fetch(event.request)
+    .then(response => {
+      return response;
+    })
+    .catch(async error => {
+      return getOfflinePage();
+    });
+});
+
+
 
 workbox.routing.registerRoute(
   new RegExp('/$'),
@@ -37,40 +76,12 @@ workbox.routing.registerRoute(
   new RegExp('.png'),
   new workbox.strategies.NetworkOnly()
 );
-workbox.routing.registerRoute(
-  /^https:\/\/(www\.)?localhost:5500(\/)?$/,
-  new workbox.strategies.NetworkFirst({
-    cacheName: 'home-page'
-  })
-)
-workbox.routing.registerRoute(
-  /^https:\/\/hoho0001\.github\.io\/mad9135-c2-pwa/,
-  new workbox.strategies.NetworkFirst({
-    cacheName: 'home-page'
-  })
-)
 
 
-workbox.routing.registerRoute(
-  new RegExp("https://api.openweathermap.org/data/2.5/weather?id=6094817&units=metric&APPID=2d46092cb1d1df56a99dc89cffe08968"),
-  new workbox.strategies.NetworkFirst({
-    cacheName: 'responseApi-cache',
-    plugins: [
-      new workbox.cacheableResponse.Plugin({
-        statuses: [0, 200],
-      })
-    ]
-  })
-);
-
-workbox.precaching.precacheAndRoute([
-  'offline.html',
-  'manifest.json',
-  'sw.js',
-  'main.js',
-  'style.css',
-  'images/offline.png'
-],
-  {
-    directoryIndex: null,
-  });
+  async function getOffline(url) {
+    const cache = await caches.open(workbox.core.cacheNames.precache);
+    const response = await cache.match(
+      workbox.precaching.getCacheKeyForURL(url)
+    );
+    return response;
+  }
