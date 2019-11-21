@@ -61,7 +61,7 @@ workbox.routing.setDefaultHandler(async ({ url, event, params }) => {
       return response;
     })
     .catch(async error => {
-      return getOfflinePage();
+      return getOffline('./offline.html');
     });
 });
 
