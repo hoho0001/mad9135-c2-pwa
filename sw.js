@@ -38,7 +38,7 @@ workbox.routing.registerRoute(
   new workbox.strategies.NetworkOnly()
 );
 workbox.routing.registerRoute(
-  /^https:\/\/(www\.)?localhost:5501(\/)?$/,
+  /^https:\/\/(www\.)?localhost:5500(\/)?$/,
   new workbox.strategies.NetworkFirst({
     cacheName: 'home-page'
   })
