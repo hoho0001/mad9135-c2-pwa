@@ -72,10 +72,6 @@ workbox.routing.registerRoute(
   new workbox.strategies.NetworkOnly()
 );
 
-workbox.routing.registerRoute(
-  new RegExp('.png'),
-  new workbox.strategies.NetworkOnly()
-);
 
 
   async function getOffline(url) {
